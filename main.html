@@ -1,31 +1,60 @@
 <!DOCTYPE html>
 <HTML>
 <head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Find Music Lyrics With Vagalume API</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 </head>
 <style>
 	#aprox {color:black;font-weight:bold;padding:10px 0}
 </style>
-<body>
-	<h1>Find Music Lyrics With Vagalume API</h1>
-	<div style='width:500px'>
-		<p>This example is using <a href='http://api.jquery.com/jQuery.getJSON/'>getJSON</a> to fetch <a href='http://api.vagalume.com.br/docs/letras/'>lyrics from Vagalume</a>. It's a very complete example 
-		using jQuery, but you can make any change you want to match your needs. It's important to keep Vagalume logo and link on your webpage.</p>
-
-		<span style='color:green'>
-			<b>Artist:</b> <i id='artista'>Iron Maiden</i> /
-			<b>Song:</b> <i id='music'>The Trooper</i>
-		</span>
-
-		<a target=_blank style='float:right;font-size:10px;color:#000;text-decoration:none;font-weight:bold' href="http://www.vagalume.com.br/"><img border=0 src="http://www.vagalume.com.br/images/logo_small2.jpg" alt="Vagalume"><br/>Letras de Músicas</a>
-		<div id='letra' style='width:400px;text-align:left'>
-			<pre class=text>Fetching lyrics... <img src="http://www.vagalume.com.br/images/processing.gif"></pre>
+<body style="background-color: #f0f8ff;">
+	<div class="container text-center">
+		<div class="row align-items-center">
+		  <div class="col">
+			<h1>Find Music Lyrics With Vagalume API</h1>
+		  </div>
+		</div>
+	</div>
+	<div class="container text-center" style="margin-top: 4%;">
+		<div class="row align-items-center">
+		  <div class="col">
+			<span style='color:black; padding:10px'>
+				<div class="row g-3">
+					<div class="col-md-6">
+					  <input id='artista' type="text" class="form-control" placeholder="Artist" aria-label="Artist">
+					</div>
+					<div class="col-md-6">
+					  <input id='music' type="text" class="form-control" placeholder="Music" aria-label="Music">
+					</div>
+					<div class="col">
+						<button id="send" type="button" style="margin-top: 2%;" class="btn btn-outline-info">Find Lyrics</button>
+					</div>
+				</div>
+			</span>
+		  </div>
+		</div>
+	</div>
+	<div class="container text-center">
+		<div class="row align-items-start">
+		  <div class="col">
+			<div id='letra' style='text-align:center'>
+				<div class="card text-bg-ligth">
+					<div class="card-body">
+						<a target=_blank style='float:center;font-size:10px;color:#000;text-decoration:none;font-weight:bold' href="http://www.vagalume.com.br/"><br/>Vagalume</a>
+						<pre class=text>Fetching lyrics...</pre>
+					</div>
+				</div>
+			</div>
+		  </div>
 		</div>
 	</div>
 	<script>
 		function showLetra (data, art, mus, arrayid) {
 			if (!arrayid) arrayid = 0;
+			console.log(data);
 
 			if (data.type == 'exact' || data.type == 'aprox') {
 				// Print lyrics text
@@ -33,21 +62,19 @@
 
 				// Show buttons to open original and portuguese translation
 				if (data.mus[arrayid].translate) {
-					$('#letra .text').prepend('<input type=button value="Portuguese &raquo;" onClick="$(document).trigger(\'translate\')"><br/>');
+					$('#letra .text').prepend('<button type=button class="btn btn-outline-info" style="margin:10px;" onClick="$(document).trigger(\'translate\')">Portuguese</button><br/>');
 					$(document).one('translate', function() {
 						$('#letra .text').text(data.mus[arrayid].translate[0].text);
-						$('#letra .text').prepend('<input type=button value="&laquo; Original" onClick="$(document).trigger(\'original\')"><br/>');
+						$('#letra .text').prepend('<button type=button class="btn btn-outline-info" style="margin:10px;" onClick="$(document).trigger(\'original\')">Original</button><br/>');
 						$(document).one('original',function() {
 							showLetra(data, art, mus, arrayid);
 						});
 					});
 				}
 
-				// If not exact match (ex: U2 / Beautiful)
 				if (data.type == 'aprox' && !$('#aprox').is('div')) {
 					$('#letra').prepend('<div id=aprox>We found something similar<br/><span class=songname>"' + data.mus[arrayid].name + '"</span></div>');
 
-					// If Vagalume found more than one possible matches
 					if (data.mus.length > 0) {
 						var html = '<select class=songselect>';
 						for (var i = 0; i < data.mus.length; i++) {
@@ -63,7 +90,6 @@
 				}
 			} else if (data.type == 'song_notfound') {
 				// Song not found, but artist was found
-				// You can list all songs from Vagalume here
 				$('#letra .text').html(
 					'Song "'+mus+'" from "'+art+'" was not found.<br/>'
 				);
@@ -76,7 +102,7 @@
 			}
 		}
 		function fetchLetra (art, mus) {
-			var data = jQuery.data(document, art + mus); // cache read
+			var data = jQuery.data(document, art + mus);
 			if (data) {
 				showLetra(data, art, mus);
 				return true;
@@ -86,20 +112,25 @@
 				+"?art="+encodeURIComponent(art)
 				+"&mus="+encodeURIComponent(mus);
 
-			// Check if browser supports CORS - http://www.w3.org/TR/cors/
 			if (!jQuery.support.cors) {
 				url += "&callback=?";
 			}
 
 			jQuery.getJSON(url, function(data) {
-				// What we do with the data
-				jQuery.data(document, art + mus,data); // cache write
+				jQuery.data(document, art + mus,data);
 				showLetra(data, art, mus);
 			});
 		}
 
-		// Just an example of how you can call this using elements on the page
-		fetchLetra($("#artista").text(),$("#music").text());
+		var sendButton = document.getElementById("send");
+
+		sendButton.addEventListener("click", function() {
+  
+  		var artista = document.getElementById("artista").value;
+  		var music = document.getElementById("music").value;
+  
+  		fetchLetra(artista, music);	
+		});
 	</script>
 </body>
 </HTML>
