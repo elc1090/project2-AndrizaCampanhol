@@ -14,7 +14,7 @@
 	<div class="container text-center">
 		<div class="row align-items-center">
 		  <div class="col">
-			<h1 style="color:#765257">Find Music Lyrics With Vagalume API</h1>
+			<h1 style="color:#765257; margin-top: 10px;">Find Music Lyrics With Vagalume API</h1>
 		  </div>
 		</div>
 	</div>
@@ -23,13 +23,13 @@
 		  <div class="col">
 			<span style='color:black; padding:10px'>
 				<div class="row g-3">
-					<div class="col-md-6">
-					  <input style="background-color: #b2818f;" id='artista' type="text" class="form-control" placeholder="Artist" aria-label="Artist">
+					<div class="col-md-6 d-flex justify-content-end">
+					  <input style="background-color: #b2818f; max-width: 40%;" id='artista' type="text" class="form-control" placeholder="Artist" aria-label="Artist">
 					</div>
-					<div class="col-md-6">
-					  <input style="background-color: #b2818f;" id='music' type="text" class="form-control" placeholder="Music" aria-label="Music">
+					<div class="col-md-6 d-flex justify-content-start">
+					  <input style="background-color: #b2818f; max-width: 40%;" id='music' type="text" class="form-control" placeholder="Music" aria-label="Music">
 					</div>
-					<div class="col">
+					<div class="col d-flex justify-content-center">
 						<button id="send" type="button" style="margin-top: 2%; background-color: #765257; color: #caa0a9; border-color: #caa0a9;" class="btn btn-outline-info">Find Lyrics</button>
 					</div>
 				</div>
@@ -44,6 +44,8 @@
 				<div class="card text-bg-ligth" style="background-color: #b2818f;">
 					<div class="card-body">
 						<a target=_blank style='float:center;font-size:10px;color:#000;text-decoration:none;font-weight:bold' href="http://www.vagalume.com.br/"><br/>Vagalume</a>
+						<b><p class="music"></p></b>
+						<p class="alb"></p>
 						<pre class=text>Fetching lyrics...</pre>
 					</div>
 				</div>

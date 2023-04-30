@@ -4,6 +4,8 @@ function showLetra(data, art, mus, arrayid) {
   if (data.type == "exact" || data.type == "aprox") {
     // Print lyrics text
     $("#letra .text").text(data.mus[arrayid].text);
+    $("#letra .music").text(data.art.name + " - " + data.mus[arrayid].name);
+    $("#letra .alb").text(data.mus[arrayid].alb.name + " - " + data.mus[arrayid].alb.year);
 
     // Show buttons to open original and portuguese translation
     if (data.mus[arrayid].translate) {
@@ -77,7 +79,9 @@ function fetchLetra(art, mus) {
     "?art=" +
     encodeURIComponent(art) +
     "&mus=" +
-    encodeURIComponent(mus);
+    encodeURIComponent(mus)
+
+    url = url + "&extra=alb";
 
   if (!jQuery.support.cors) {
     url += "&callback=?";
