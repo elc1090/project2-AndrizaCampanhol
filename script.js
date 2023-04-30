@@ -8,12 +8,12 @@ function showLetra(data, art, mus, arrayid) {
     // Show buttons to open original and portuguese translation
     if (data.mus[arrayid].translate) {
       $("#letra .text").prepend(
-        '<button type=button class="btn btn-outline-info" style="margin:10px;" onClick="$(document).trigger(\'translate\')">Portuguese</button><br/>'
+        '<button type=button class="btn btn-outline-info" style="margin: 10px; background-color: #765257; color: #caa0a9; border-color: #caa0a9;" onClick="$(document).trigger(\'translate\')">Portuguese</button><br/>'
       );
       $(document).one("translate", function () {
         $("#letra .text").text(data.mus[arrayid].translate[0].text);
         $("#letra .text").prepend(
-          '<button type=button class="btn btn-outline-info" style="margin:10px;" onClick="$(document).trigger(\'original\')">Original</button><br/>'
+          '<button type=button class="btn btn-outline-info" style="margin: 10px; background-color: #765257; color: #caa0a9; border-color: #caa0a9;" onClick="$(document).trigger(\'original\')">Original</button><br/>'
         );
         $(document).one("original", function () {
           showLetra(data, art, mus, arrayid);
