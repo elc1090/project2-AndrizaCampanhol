@@ -80,7 +80,7 @@ function fetchLetra(art, mus, img) {
   }
 
   var url =
-    "http://api.vagalume.com.br/search.php" +
+    "https://api.vagalume.com.br/search.php" +
     "?art=" +
     encodeURIComponent(art) +
     "&mus=" +
