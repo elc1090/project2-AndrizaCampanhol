@@ -1,0 +1,8 @@
+#myImage {
+    display: none;
+    width: 80%;
+    height: 50%;
+    margin: 0 auto;
+    border-radius: 5%;
+    margin-top: 10px;
+  }
