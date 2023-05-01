@@ -1,8 +1,55 @@
+html body {
+    background-color: #2e2028;
+}
+
+html h1 {
+    color: #765257;
+    margin-top: 10px;
+}
+
+#aprox {
+    color: black;
+    font-weight: bold;
+    padding: 10px 0;
+}
+
 #myImage {
     display: none;
-    width: 80%;
-    height: 50%;
+    width: 400px; 
+    height: 400px;
     margin: 0 auto;
     border-radius: 5%;
     margin-top: 10px;
   }
+
+input.artista-input {
+    max-width: 40%;
+}
+
+input.music-input {
+    max-width: 40%;
+}
+
+button.button-input{
+    margin-top: 2%; 
+}
+
+.sp {
+    color: black;
+    padding: 10px;
+}
+
+#letra{
+    text-align:center;
+}
+
+#art{
+    text-align:center;
+}
+
+.vagalume{
+    float:center;
+    font-size:10px;
+    text-decoration:none;
+    font-weight:bold
+}
